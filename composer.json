@@ -1,5 +1,5 @@
 {
-  "name": "swoft/websocket-server",
+  "name": "swoft-fork/websocket-server",
   "type": "library",
   "version": "v2.0.11",
   "keywords": [
@@ -10,10 +10,10 @@
     "websocket"
   ],
   "description": "swoft websocket server component",
-  "homepage": "https://github.com/swoft-cloud/swoft-websocket-server",
+  "homepage": "https://github.com/sky-up/swoft-websocket-server",
   "license": "Apache-2.0",
   "require": {
-    "swoft/framework": "~2.0.0"
+    "swoft-fork/framework": "~2.0.0"
   },
   "autoload": {
     "psr-4": {
