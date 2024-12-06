@@ -16,7 +16,7 @@ Swoft Websocket Server Component
 - composer command
 
 ```bash
-composer require swoft/websocket-server
+composer require swoft-fork/websocket-server
 ```
 
 ## Resources
