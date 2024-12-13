@@ -6,6 +6,7 @@
 [![Swoft License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)](https://github.com/swoft-cloud/swoft/blob/master/LICENSE)
 
 Swoft Websocket Server Component
+This Repositories fork from https://github.com/swoft-cloud/swoft-websocket-server, support php8
 
 ## [中文说明](README.zh-CN.md)
 
