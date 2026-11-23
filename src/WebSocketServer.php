@@ -15,7 +15,7 @@ use Swoft\Server\Exception\ServerException;
 use Swoft\Server\Server;
 use Swoft\Server\SwooleEvent;
 use Swoft\WebSocket\Server\Helper\WsHelper;
-use Swoole\Websocket\Frame;
+use Swoole\WebSocket\Frame;
 use Throwable;
 use function array_flip;
 use function array_shift;
@@ -67,7 +67,7 @@ class WebSocketServer extends Server
      */
     public function start(): void
     {
-        $this->swooleServer = new \Swoole\Websocket\Server($this->host, $this->port, $this->mode, $this->type);
+        $this->swooleServer = new \Swoole\WebSocket\Server($this->host, $this->port, $this->mode, $this->type);
 
         $this->startSwoole();
     }
@@ -137,6 +137,8 @@ class WebSocketServer extends Server
         // Fix: since swoole 4.4.12 $finish change type to int.
         if (WsHelper::isLtSwooleVersion()) {
             $finish = (bool)$finish;
+        } else {
+            $finish = (int)$finish;
         }
 
         return $this->swooleServer->push($receiver, $data, $opcode, $finish);
@@ -274,7 +276,7 @@ class WebSocketServer extends Server
             foreach ($receivers as $fd) {
                 if ($fd && $this->swooleServer->isEstablished((int)$fd)) {
                     $count++;
-                    $this->swooleServer->push($fd, $data, $opcode);
+                    $this->swooleServer->push((int)$fd, $data, $opcode);
                 }
             }
 

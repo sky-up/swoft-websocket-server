@@ -98,8 +98,8 @@ class WsHelper
     {
         // $this->log("received handshake request from fd #{$request->fd}, co ID #" . Coroutine::tid());
         // WebSocket握手连接算法验证
-        $secKey = $request->header['sec-websocket-key'];
-        if (self::isInvalidSecKey($secKey)) {
+        $secKey = $request->header['sec-websocket-key'] ?? '';
+        if (!$secKey || self::isInvalidSecKey($secKey)) {
             $response->end();
             return false;
         }
@@ -109,7 +109,7 @@ class WsHelper
         // WebSocket connection to 'ws://127.0.0.1:9502/'
         // failed: Error during WebSocket handshake:
         // Response must not include 'Sec-WebSocket-Protocol' header if not present in request: websocket
-        if (isset($request->header['sec-websocket-protocol'])) {
+        if (!empty($request->header['sec-websocket-protocol'])) {
             $headers['Sec-WebSocket-Protocol'] = $request->header['sec-websocket-protocol'];
         }
 
@@ -129,6 +129,10 @@ class WsHelper
      */
     public static function isLtSwooleVersion(string $version = '4.4.12'): bool
     {
+        if (!defined('SWOOLE_VERSION')) {
+            return false;
+        }
+
         $curVer = SWOOLE_VERSION;
 
         if (version_compare($curVer, $version, '<')) {
@@ -137,5 +141,15 @@ class WsHelper
         }
 
         return false;
+    }
+
+    /**
+     * Check Swoole version is >= 6.0.0
+     *
+     * @return bool
+     */
+    public static function isGteSwoole6(): bool
+    {
+        return defined('SWOOLE_VERSION_ID') && SWOOLE_VERSION_ID >= 60000;
     }
 }

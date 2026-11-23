@@ -192,7 +192,7 @@ class Response implements ResponseInterface
      *
      * @return int
      */
-    public function send(Connection $conn = null): int
+    public function send(?Connection $conn = null): int
     {
         // Deny repeat call send.
         // But if you want send again, you can call `setSent(false)` before call it.

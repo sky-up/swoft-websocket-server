@@ -67,8 +67,8 @@ class HandshakeListener implements HandshakeInterface
 
         // If sec-websocket-key error
         $status = false;
-        $secKey = $request->header['sec-websocket-key'];
-        if (WsHelper::isInvalidSecKey($secKey)) {
+        $secKey = $request->header['sec-websocket-key'] ?? '';
+        if (!$secKey || WsHelper::isInvalidSecKey($secKey)) {
             server()->log("Handshake: shake hands failed with the #$fd. 'sec-websocket-key' is error!");
             $response->end('sec-websocket-key is invalid!');
             return false;
